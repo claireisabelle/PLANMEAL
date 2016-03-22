@@ -1,0 +1,3 @@
+planmeal_homepage:
+    path:     /
+    defaults: { _controller: PlanmealBundle:Repas:index }

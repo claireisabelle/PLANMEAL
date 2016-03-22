@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}PlanMeal - Planification des repas de la semaine{% endblock %}</title>
+        
+
+
+    	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+    	{% stylesheets 'css/*' filter='cssrewrite' %}
+    	<link rel="stylesheet" href="{{ asset_url }}"
+    	{% endstylesheets %}
+
+
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+
+    <body>
+
+    	<header>
+			<nav class="navbar navbar-default navbar-fixed-top">
+				<div class="container">
+				
+					<!-- Bouton hamburger pour la partie mobile -->
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						</button>
+						<a class="navbar-brand" href="#">PlanMeal</a>
+					</div>
+
+					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+						<ul class="nav navbar-nav pull-right">
+							<li><a href="#"><i class="fa fa-home fa-lg"></i> Accueil</a></li>
+							<li><a href="#"><i class="fa fa-calendar-plus-o fa-lg"></i> Planifier</a></li>
+							<li><a href="#"><i class="fa fa-cog fa-lg"></i> Paramètres</a></li>
+							<li><a href="#"><i class="fa fa-sign-out fa-lg"></i> Déconnexion</a></li>
+						</ul>
+					</div>
+
+				</div>
+			</nav>
+    	</header>
+
+
+    	<div class="container">
+        {% block body %}
+        
+        {% endblock %}
+    	</div>
+
+        
+
+
+
+        <!-- Scripts JS -->
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+		<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+    </body>
+</html>

@@ -1,0 +1,72 @@
+/* ---------- GENERALITES --------- */
+
+body{
+	padding-top: 70px;
+}
+
+/* ---------- MENU --------- */
+
+.navbar-default {
+  background-color: #476FB2;
+  border-color: #164087;
+}
+
+.navbar-default .navbar-nav > li > a {
+  color: #C7D7F4;
+}
+
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+  color: #ffffff;
+  background-color: #2D58A1;
+}
+
+.navbar-default .navbar-brand {
+  color: #C7D7F4;
+}
+
+.navbar-default .navbar-brand:hover{
+	color: #9AB3E2;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+  background-color: #ffffff;
+}
+
+
+/* ---------- CONTENU --------- */
+
+.bleu{
+	color: #476FB2;
+}
+
+table{
+	table-layout: fixed;
+}
+
+table th, td{
+  text-align: center;
+}
+
+td{
+	font-size: 0.9em;
+	vertical-align: middle;
+	min-width: 150px;
+}
+
+.bg-primary {
+  color: #fff;
+  background-color: #476FB2;
+  padding: 5px;
+}
+
+
+/* ---------- RESPONSIVE --------- */
+
+@media (max-width: 768px){
+
+table{
+	table-layout: auto;
+}
+
+}
