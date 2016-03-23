@@ -14,6 +14,10 @@
 
 			<div class="panel-body">
 {% endblock %}
+				
+				{% for message in app.session.flashbag.get('success') %}
+					<div class="alert alert-success" role="alert"><strong><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> {{ message }} </strong></div>
+				{% endfor %}
 
 				<!-- Navigation onglets -->
 				<ul class="nav nav-tabs" role="tablist">
@@ -75,7 +79,7 @@
 								<tr>
 									<td>{{ type.nom }}</td>
 									<td class="parametres"><a href="" class="label label-primary"><i class="fa fa-pencil fa-lg"></i> Editer</a></td>
-									<td class="parametres"><a href="" class="label label-danger"><i class="fa fa-trash fa-lg"></i> Supprimer</a></td>
+									<td class="parametres"><a href="{{ path('planmeal_type_supprimer', {'id': type.id}) }}" class="label label-danger"><i class="fa fa-trash fa-lg"></i> Supprimer</a></td>
 								</tr>
 								{% endfor %}
 							</tbody>

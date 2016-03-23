@@ -6,7 +6,7 @@
 
 {% block contenu1 %}{{ parent() }}{% endblock %}
 
-	<p><a href="" class="btn btn-warning"><i class="fa fa-caret-left fa-lg"></i> Annuler et revenir aux paramètres généraux</a></p>
+	<p><a href="{{ path('planmeal_parametres_index') }}" class="btn btn-warning"><i class="fa fa-caret-left fa-lg"></i> Annuler et revenir aux paramètres généraux</a></p>
 
 	<ul class="nav nav-tabs" role="tablist">
 		<li role="presentation" class="active"><a href="#ajoutplat" aria-controls="ajoutplat" role="tab" data-toggle="tab">Ajouter un type de plat</a></li>
@@ -15,6 +15,23 @@
 	<div class="tab-content">
 		<div role="tabpanel" class="tab-pane active" id="ajoutplat">
 			
+			<div class="row">
+				<div class="col-xs-12 col-sm-6">
+					{{ form_start(form) }}
+					{{ form_errors(form) }}
+
+					<div class="form-group">
+					{{ form_label(form.nom, 'Type de plat') }}
+					{{ form_widget(form.nom, {'attr': {'placeholder': 'Ex: Légume', 'class': 'form-control'}}) }}
+					</div>
+
+
+					{{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}}) }}
+
+					{{ form_end(form) }}
+				</div>
+			</div>
+
 		</div>
 	</div>
 

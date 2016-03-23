@@ -63,6 +63,7 @@ table th, td{
 td{
 	font-size: 0.9em;
 	vertical-align: middle;
+	min-width: 150px;
 }
 
 .bg-primary {
@@ -71,12 +72,17 @@ td{
   padding: 5px;
 }
 
+.tab-content > .active {
+  margin-top: 20px;
+}
+
+
 /* ---------- RESPONSIVE --------- */
 
-@media (max-width: 764px){
+@media (max-width: 768px){
 
 table{
-  table-layout: auto;
+	table-layout: auto;
 }
 
 }
