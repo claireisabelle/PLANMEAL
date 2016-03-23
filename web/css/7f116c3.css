@@ -33,6 +33,10 @@ body{
   background-color: #ffffff;
 }
 
+.dino{
+  margin-top: -4px;
+}
+
 
 /* ---------- CONTENU --------- */
 
@@ -42,6 +46,14 @@ body{
 
 table{
 	table-layout: fixed;
+}
+
+.parametres{
+  width: 100px;
+}
+
+.table-parametres{
+  max-width: 600px;
 }
 
 table th, td{

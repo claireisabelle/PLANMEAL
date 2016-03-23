@@ -1,0 +1,96 @@
+{% extends 'PlanmealBundle::index.html.twig' %}
+
+{% block title %}Paramètres{% endblock %}
+
+{% block body %}
+
+{% block contenu1 %} 
+
+<div class="row"><!-- ROW 1 -->
+	<div class="col-xs-12">
+		<div class="panel panel-default">
+			<div class="panel-heading"><i class="fa fa-cog fa-lg"></i> Paramètres</div>
+			
+
+			<div class="panel-body">
+{% endblock %}
+
+				<!-- Navigation onglets -->
+				<ul class="nav nav-tabs" role="tablist">
+					<li role="presentation" class="active"><a href="#plat" aria-controls="plat" role="tab" data-toggle="tab">Plats</a></li>
+					<li role="presentation"><a href="#type" aria-controls="type" role="tab" data-toggle="tab">Types de plats</a></li>
+				</ul>
+
+				<!-- Contenu onglets -->
+				<div class="tab-content">
+
+					<!-- Partie PLATS -->
+					<div role="tabpanel" class="tab-pane active" id="plat">
+						<p><br /><a href="" class="btn btn-info"><i class="fa fa-plus fa-lg"></i> Ajouter un plat</a></p>
+
+						<table class="table table-striped table-parametres">
+							<thead>
+								<tr>
+									<th>Nom du plat</th>
+									<th class="parametres">Editer</th>
+									<th class="parametres">Supprimer</th>
+								</tr>
+							</thead>
+
+							<tbody>
+								<tr>
+									<td>Nouilles chinoises</td>
+									<td class="parametres"><a href="" class="label label-primary"><i class="fa fa-pencil fa-lg"></i> Editer</a></td>
+									<td class="parametres"><a href="" class="label label-danger"><i class="fa fa-trash fa-lg"></i> Supprimer</a></td>
+								</tr>
+
+								<tr>
+									<td>Lasagne</td>
+									<td class="parametres"><a href="" class="label label-primary"><i class="fa fa-pencil fa-lg"></i> Editer</a></td>
+									<td class="parametres"><a href="" class="label label-danger"><i class="fa fa-trash fa-lg"></i> Supprimer</a></td>
+								</tr>
+							</tbody>
+						</table>
+
+					</div>
+					
+
+
+
+					<!-- Partie TYPES -->
+					<div role="tabpanel" class="tab-pane" id="type">
+						<p><br /><a href="{{ path('planmeal_type_ajouter') }}" class="btn btn-info"><i class="fa fa-plus fa-lg"></i> Ajouter un type de plat</a></p>
+
+						<table class="table table-striped table-parametres">
+							<thead>
+								<tr>
+									<th>Nom du type de plat</th>
+									<th class="parametres">Editer</th>
+									<th class="parametres">Supprimer</th>
+								</tr>
+							</thead>
+
+							<tbody>
+								{% for type in listeTypes %}
+								<tr>
+									<td>{{ type.nom }}</td>
+									<td class="parametres"><a href="" class="label label-primary"><i class="fa fa-pencil fa-lg"></i> Editer</a></td>
+									<td class="parametres"><a href="" class="label label-danger"><i class="fa fa-trash fa-lg"></i> Supprimer</a></td>
+								</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+
+{% block contenu2 %}
+			</div>
+		</div>
+
+	</div>
+
+</div><!-- FIN ROW 1 -->
+{% endblock %}
+
+{% endblock %}

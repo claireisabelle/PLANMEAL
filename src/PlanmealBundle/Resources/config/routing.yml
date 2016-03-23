@@ -1,3 +1,23 @@
 planmeal_homepage:
     path:     /
     defaults: { _controller: PlanmealBundle:Repas:index }
+
+planmeal_parametres_index:
+    path:    /parametres 
+    defaults: { _controller: PlanmealBundle:Parametres:index }
+
+planmeal_type_ajouter:
+    path:    /parametres/type/ajouter 
+    defaults: { _controller: PlanmealBundle:Parametres:typeAjouter }
+
+planmeal_type_editer:
+    path:    /parametres/type/editer/{id}
+    defaults: { _controller: PlanmealBundle:Parametres:typeEditer }
+    requirements:
+        id: \d+
+
+planmeal_type_supprimer:
+    path:    /parametres/type/supprimer/{id}
+    defaults: { _controller: PlanmealBundle:Parametres:typeSupprimer }
+    requirements:
+        id: \d+
