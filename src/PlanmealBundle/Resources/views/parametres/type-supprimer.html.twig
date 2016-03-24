@@ -16,11 +16,11 @@
 		<div role="tabpanel" class="tab-pane active" id="ajoutplat">
 			
 			{% if not type.plats.empty %}
-				<div class="alert alert-danger"><span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span> Ce type de plat ne peut être supprimé car un ou plusieurs plats y sont liés.</div>
+				<div class="alert alert-danger"><i class="fa fa-exclamation-triangle fa-lg"></i> Ce type de plat ne peut être supprimé car un ou plusieurs plats y sont liés.</div>
 			{% endif %}
 
 			{% if type.plats.empty %}
-				<div class="alert alert-danger"><p>Souhaitez-vous vraiment supprimer le type de plat {{ type.nom }} ?</p>
+				<div class="alert alert-danger"><p><i class="fa fa-exclamation-triangle fa-lg"></i> Souhaitez-vous vraiment supprimer le type de plat {{ type.nom }} ?<br /><br /></p>
 
 				<form method="post" action="{{ path('planmeal_type_supprimer', {'id': type.id}) }}">
 

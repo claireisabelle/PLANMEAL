@@ -29,11 +29,20 @@ class Type
      */
     private $nom;
 
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="nbreConsommation", type="integer")
+     */
+    private $nbreConsommation = 0;
+
 
     /**
     * @ORM\OneToMany(targetEntity="Plat", mappedBy="type")
     **/
     protected $plats;
+
+
 
 
     public function __construct()

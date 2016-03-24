@@ -1,0 +1,41 @@
+{% extends 'PlanmealBundle:parametres:index.html.twig' %}
+
+{% block title %}{{ parent() }} - Supprimer un plat{% endblock %}
+
+{% block body %}
+
+{% block contenu1 %}{{ parent() }}{% endblock %}
+
+	<p><a href="{{ path('planmeal_parametres_index') }}" class="btn btn-warning"><i class="fa fa-caret-left fa-lg"></i> Annuler et revenir aux paramètres généraux</a></p>
+
+	<ul class="nav nav-tabs" role="tablist">
+		<li role="presentation" class="active"><a href="#ajoutplat" aria-controls="ajoutplat" role="tab" data-toggle="tab">Supprimer un plat</a></li>
+	</ul>
+
+	<div class="tab-content">
+		<div role="tabpanel" class="tab-pane active" id="ajoutplat">
+			
+			{% if not plat.repas.empty %}
+				<div class="alert alert-danger"><i class="fa fa-exclamation-triangle fa-lg"></i> Ce plat ne peut être supprimé car un ou plusieurs repas y sont liés.</div>
+			{% endif %}
+
+			{% if plat.repas.empty %}
+				<div class="alert alert-danger"><p><i class="fa fa-exclamation-triangle fa-lg"></i> Souhaitez-vous vraiment supprimer le plat {{ plat.nom }} ?<br /><br /></p>
+
+				<form method="post" action="{{ path('planmeal_plat_supprimer', {'id': plat.id}) }}">
+
+				<input type="submit" value="Supprimer le plat" />
+
+				{{ form_rest(form) }}
+
+				</form>
+
+				</div>
+			{% endif %}
+
+		</div>
+	</div>
+
+
+{% block contenu2 %}{{ parent() }}{% endblock %}
+{% endblock %}

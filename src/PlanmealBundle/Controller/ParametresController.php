@@ -6,8 +6,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 use PlanmealBundle\Entity\Type;
+use PlanmealBundle\Entity\Plat;
 
 use PlanmealBundle\Form\Type\TypeType;
+use PlanmealBundle\Form\Type\PlatType;
 
 class ParametresController extends Controller
 {
@@ -17,7 +19,9 @@ class ParametresController extends Controller
 
         $listeTypes = $em->getRepository('PlanmealBundle:Type')->findBy(array(), array('nom' => 'ASC'));
 
-        return $this->render('PlanmealBundle:parametres:index.html.twig', array('listeTypes' => $listeTypes));
+        $listePlats = $em->getRepository('PlanmealBundle:Plat')->findBy(array(), array('nom' => 'ASC'));
+
+        return $this->render('PlanmealBundle:parametres:index.html.twig', array('listeTypes' => $listeTypes, 'listePlats' => $listePlats));
     }
 
     
@@ -42,6 +46,7 @@ class ParametresController extends Controller
 
     	return $this->render('PlanmealBundle:parametres:type-ajouter.html.twig', array('form' => $form->createView()));
     }
+
 
     public function typeEditerAction(Request $request, $id)
     {
@@ -96,6 +101,82 @@ class ParametresController extends Controller
 
 		return $this->render('PlanmealBundle:parametres:type-supprimer.html.twig', array('type' => $type, 'form' => $form->createView()));
 
+    }
+
+
+    public function platAjouterAction(Request $request)
+    {
+    	$plat = new Plat();
+
+    	$form = $this->createForm(PlatType::class, $plat);
+    	$form->handleRequest($request);
+
+    	if($form->isSubmitted() && $form->isValid())
+    	{
+    		$em = $this->getDoctrine()->getManager();
+    		$em->persist($plat);
+    		$em->flush();
+
+    		$request->getSession()->getFlashBag()->add('success', 'Le plat a bien été ajouté.');
+
+    		return $this->redirectToRoute('planmeal_parametres_index');
+    	}
+
+    	return $this->render('PlanmealBundle:parametres:plat-ajouter.html.twig', array('form' => $form->createView()));
+    }
+
+
+    public function platEditerAction(Request $request, $id)
+    {
+    	$em = $this->getDoctrine()->getManager();
+
+    	$plat = $em->getRepository('PlanmealBundle:Plat')->find($id);
+
+    	if(!$plat)
+    	{
+    		throw $this->createNotFoundException('Le plat n° '.$id.' est inconnu.');
+    	}
+
+    	$form = $this->createForm(PlatType::class, $plat);
+    	$form->handleRequest($request);
+
+    	if($form->isSubmitted() && $form->isValid())
+    	{
+    		$em->flush();
+
+    		$request->getSession()->getFlashBag()->add('success', 'Le plat a bien été édité.');
+
+    		return $this->redirectToRoute('planmeal_parametres_index');
+    	}
+
+    	return $this->render('PlanmealBundle:parametres:plat-editer.html.twig', array('form' => $form->createView()));
+    }
+
+
+    public function platSupprimerAction(Request $request, $id)
+    {
+    	$em = $this->getDoctrine()->getManager();
+
+    	$plat = $em->getRepository('PlanmealBundle:Plat')->find($id);
+
+    	if(!$plat)
+    	{
+    		throw $this->createNotFoundException('Le plat n° '.$id.' est inconnu.');
+    	}
+
+    	$form = $this->createFormBuilder()->getForm();
+
+    	if($form->handleRequest($request)->isValid())
+    	{
+    		$em->remove($plat);
+    		$em->flush();
+
+    		$request->getSession()->getFlashBag()->add('success', 'Le plat a bien été supprimé');
+
+    		return $this->redirectToRoute('planmeal_parametres_index');
+    	}
+
+    	return $this->render('PlanmealBundle:parametres:plat-supprimer.html.twig', array('plat' => $plat, 'form' => $form->createView()));
     }
 
 }

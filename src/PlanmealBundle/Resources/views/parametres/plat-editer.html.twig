@@ -1,0 +1,31 @@
+{% extends 'PlanmealBundle:parametres:index.html.twig' %}
+
+{% block title %}{{ parent() }} - Editer un plat{% endblock %}
+
+{% block body %}
+
+{% block contenu1 %}{{ parent() }}{% endblock %}
+
+	<p><a href="{{ path('planmeal_parametres_index') }}" class="btn btn-warning"><i class="fa fa-caret-left fa-lg"></i> Annuler et revenir aux paramètres généraux</a></p>
+
+	<ul class="nav nav-tabs" role="tablist">
+		<li role="presentation" class="active"><a href="#editplat" aria-controls="editplat" role="tab" data-toggle="tab">Editer un plat</a></li>
+	</ul>
+
+	<div class="tab-content">
+		<div role="tabpanel" class="tab-pane active" id="editplat">
+			
+			<div class="row">
+				<div class="col-xs-12 col-sm-6">
+
+					{{ include("PlanmealBundle:parametres:plat-form.html.twig") }}
+
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+
+{% block contenu2 %}{{ parent() }}{% endblock %}
+{% endblock %}

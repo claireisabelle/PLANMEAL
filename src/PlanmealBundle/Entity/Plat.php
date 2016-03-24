@@ -34,7 +34,7 @@ class Plat
      *
      * @ORM\Column(name="nbreUtilisation", type="integer")
      */
-    private $nbreUtilisation;
+    private $nbreUtilisation = 0;
 
     /**
      * @var \DateTime
@@ -56,6 +56,7 @@ class Plat
     public function __construct()
     {
         $this->repas = new ArrayCollection();
+        $this->dateUtilisation = new \DateTime('2001-06-16');
     }
 
 

@@ -1,6 +1,16 @@
 planmeal_homepage:
-    path:     /
-    defaults: { _controller: PlanmealBundle:Repas:index }
+    path:     /{annee}{semaine}
+    defaults: { _controller: PlanmealBundle:Repas:index, annee:2016, semaine: 1 }
+    requirements:
+        semaine: \d+
+        annee: \d{4}
+
+planmeal_semaine_suivante:
+    path:    /annee/{annee}/semaine/{semaine}
+    defaults: { _controller: PlanmealBundle:Repas:semaineSuivante }
+    requirements:
+        semaine: \d+
+        annee: \d{4}
 
 planmeal_parametres_index:
     path:    /parametres 
@@ -19,5 +29,21 @@ planmeal_type_editer:
 planmeal_type_supprimer:
     path:    /parametres/type/supprimer/{id}
     defaults: { _controller: PlanmealBundle:Parametres:typeSupprimer }
+    requirements:
+        id: \d+
+
+planmeal_plat_ajouter:
+    path: /parametres/plat/ajouter
+    defaults: { _controller: PlanmealBundle:Parametres:platAjouter }
+
+planmeal_plat_editer:
+    path: /parametres/plat/editer/{id}
+    defaults: { _controller: PlanmealBundle:Parametres:platEditer }
+    requirements:
+        id: \d+
+
+planmeal_plat_supprimer:
+    path: /parametres/plat/supprimer/{id}
+    defaults: { _controller: PlanmealBundle:Parametres:platSupprimer }
     requirements:
         id: \d+
