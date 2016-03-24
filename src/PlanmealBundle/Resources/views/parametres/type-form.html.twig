@@ -1,0 +1,12 @@
+{{ form_start(form) }}
+{{ form_errors(form) }}
+
+<div class="form-group">
+{{ form_label(form.nom, 'Type de plat') }}
+{{ form_widget(form.nom, {'attr': {'placeholder': 'Ex: Légume', 'class': 'form-control'}}) }}
+</div>
+
+
+{{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}}) }}
+
+{{ form_end(form) }}

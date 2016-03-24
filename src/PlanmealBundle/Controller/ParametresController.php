@@ -45,8 +45,31 @@ class ParametresController extends Controller
 
     public function typeEditerAction(Request $request, $id)
     {
+    	$em = $this->getDoctrine()->getManager();
+
+    	$type = $em->getRepository('PlanmealBundle:Type')->find($id);
+
+    	if(!$type)
+    	{
+    		throw $this->createNotFoundException('Le type de plat n° '.$id.' est inconnu.');
+    	}
+
+    	$form = $this->createForm(TypeType::class, $type);
+    	$form->handleRequest($request);
+
+    	if($form->isSubmitted() && $form->isValid())
+    	{
+    		$em->flush();
+
+    		$request->getSession()->getFlashBag()->add('success', 'Le type de plat a bien été édité.');
+
+    		return $this->redirectToRoute('planmeal_parametres_index');
+    	}
+
+    	return $this->render('PlanmealBundle:parametres:type-editer.html.twig', array('form' => $form->createView()));
 
     }
+
 
     public function typeSupprimerAction(Request $request, $id)
     {
