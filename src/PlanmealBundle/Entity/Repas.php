@@ -5,11 +5,13 @@ namespace PlanmealBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
+
 /**
  * Repas
  *
  * @ORM\Table(name="repas")
  * @ORM\Entity(repositoryClass="PlanmealBundle\Repository\RepasRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Repas
 {
@@ -39,7 +41,7 @@ class Repas
     /**
      * @var string
      *
-     * @ORM\Column(name="commentaire", type="text")
+     * @ORM\Column(name="commentaire", type="text", nullable=true)
      */
     private $commentaire;
 
@@ -49,6 +51,13 @@ class Repas
      * @ORM\Column(name="semaine", type="integer")
      */
     private $semaine;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="annee", type="integer")
+     */
+    private $annee;
 
 
     /**
@@ -60,6 +69,7 @@ class Repas
     public function __construct()
     {
         $this->plats = new ArrayCollection();
+        $this->date = new \DateTime();
     }
 
 
@@ -151,10 +161,15 @@ class Repas
      * @param integer $semaine
      *
      * @return Repas
+     *
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     *
      */
-    public function setSemaine($semaine)
+    public function setSemaine()
     {
-        $this->semaine = $semaine;
+        
+        $this->semaine = $this->getDate()->format('W');
 
         return $this;
     }
@@ -201,5 +216,34 @@ class Repas
     public function getPlats()
     {
         return $this->plats;
+    }
+
+    /**
+     * Set annee
+     *
+     * @param integer $annee
+     *
+     * @return Repas
+     *
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     *
+     */
+    public function setAnnee()
+    {
+        
+        $this->annee = $this->getDate()->format('Y');
+
+        return $this;
+    }
+
+    /**
+     * Get annee
+     *
+     * @return integer
+     */
+    public function getAnnee()
+    {
+        return $this->annee;
     }
 }

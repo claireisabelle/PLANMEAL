@@ -58,11 +58,11 @@ table{
 
 table th, td{
   text-align: center;
+  vertical-align: middle !important;
 }
 
 td{
 	font-size: 0.9em;
-	vertical-align: middle;
 	min-width: 150px;
 }
 

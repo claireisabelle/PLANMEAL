@@ -1,0 +1,31 @@
+{% extends 'PlanmealBundle:repas:repas-planifier.html.twig' %}
+
+{% block title %}{{ parent() }} - Composer un repas{% endblock %}
+
+{% block body %}
+
+{% block contenu1 %}{{ parent() }}{% endblock %}
+
+	<p><a href="{{ path('planmeal_repas_planifier') }}" class="btn btn-warning"><i class="fa fa-caret-left fa-lg"></i> Annuler et revenir en arrière</a></p>
+
+	<ul class="nav nav-tabs" role="tablist">
+		<li role="presentation" class="active"><a href="#ajoutplat" aria-controls="ajoutplat" role="tab" data-toggle="tab">Composer un repas</a></li>
+	</ul>
+
+	<div class="tab-content">
+		<div role="tabpanel" class="tab-pane active" id="ajoutplat">
+			
+			<div class="row">
+				<div class="col-xs-12 col-sm-6">
+
+					{{ include("PlanmealBundle:repas:repas-form.html.twig") }}
+					
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+
+{% block contenu2 %}{{ parent() }}{% endblock %}
+{% endblock %}

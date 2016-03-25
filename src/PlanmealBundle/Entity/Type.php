@@ -118,4 +118,28 @@ class Type
     {
         return $this->plats;
     }
+
+    /**
+     * Set nbreConsommation
+     *
+     * @param integer $nbreConsommation
+     *
+     * @return Type
+     */
+    public function setNbreConsommation($nbreConsommation)
+    {
+        $this->nbreConsommation = $nbreConsommation;
+
+        return $this;
+    }
+
+    /**
+     * Get nbreConsommation
+     *
+     * @return integer
+     */
+    public function getNbreConsommation()
+    {
+        return $this->nbreConsommation;
+    }
 }

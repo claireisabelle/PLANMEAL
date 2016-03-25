@@ -10,6 +10,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  *
  * @ORM\Table(name="repas")
  * @ORM\Entity(repositoryClass="PlanmealBundle\Repository\RepasRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Repas
 {
@@ -50,6 +51,13 @@ class Repas
      */
     private $semaine;
 
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="annee", type="integer")
+     */
+    private $annee;
+
 
     /**
     * @ORM\ManyToMany(targetEntity="Plat", inversedBy="repas")
@@ -60,6 +68,7 @@ class Repas
     public function __construct()
     {
         $this->plats = new ArrayCollection();
+        $this->date = new \DateTime();
     }
 
 
@@ -151,10 +160,16 @@ class Repas
      * @param integer $semaine
      *
      * @return Repas
+     *
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     *
      */
-    public function setSemaine($semaine)
+    public function setSemaine()
     {
-        $this->semaine = $semaine;
+        $date = $this->getDate();
+
+        $this->semaine = date('W', $date);
 
         return $this;
     }
@@ -168,5 +183,38 @@ class Repas
     {
         return $this->semaine;
     }
-}
 
+    /**
+     * Add plat
+     *
+     * @param \PlanmealBundle\Entity\Plat $plat
+     *
+     * @return Repas
+     */
+    public function addPlat(\PlanmealBundle\Entity\Plat $plat)
+    {
+        $this->plats[] = $plat;
+
+        return $this;
+    }
+
+    /**
+     * Remove plat
+     *
+     * @param \PlanmealBundle\Entity\Plat $plat
+     */
+    public function removePlat(\PlanmealBundle\Entity\Plat $plat)
+    {
+        $this->plats->removeElement($plat);
+    }
+
+    /**
+     * Get plats
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPlats()
+    {
+        return $this->plats;
+    }
+}

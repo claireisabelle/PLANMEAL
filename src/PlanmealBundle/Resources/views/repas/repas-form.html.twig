@@ -1,0 +1,38 @@
+{{ form_start(form) }}
+{{ form_errors(form) }}
+
+<div class="form-group">
+{{ form_label(form.date, 'Date du repas') }}
+{{ form_widget(form.date) }}
+</div>
+
+<div class="form-group">
+{{ form_label(form.moment, 'Moment de la journée') }}
+{{ form_widget(form.moment) }}
+</div>
+
+<div class="form-group">
+{{ form_label(form.commentaire, 'Commentaire') }}
+{{ form_widget(form.commentaire, {'attr': {'placeholder': 'Ajouter des précisions si besoin', 'class': 'form-control'}}) }}
+</div>
+
+<div class="form-group">
+{{ form_label(form.plats, 'Composer le menu') }}
+
+{% for plat in form.plats %}
+	<div class="checkbox">
+		<label>
+		    {{ form_widget(plat, {'attr': {'class': 'checkbox'}}) }}
+		    {{ form_label(plat) }}
+		</label>
+	</div>
+{% endfor %}
+
+</div>
+
+
+{{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}}) }}
+
+{{ form_end(form) }}
+
+

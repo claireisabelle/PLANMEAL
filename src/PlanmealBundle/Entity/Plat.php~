@@ -34,7 +34,7 @@ class Plat
      *
      * @ORM\Column(name="nbreUtilisation", type="integer")
      */
-    private $nbreUtilisation;
+    private $nbreUtilisation = 0;
 
     /**
      * @var \DateTime
@@ -56,6 +56,7 @@ class Plat
     public function __construct()
     {
         $this->repas = new ArrayCollection();
+        $this->dateUtilisation = new \DateTime('2001-06-16');
     }
 
 
@@ -140,5 +141,62 @@ class Plat
     {
         return $this->dateUtilisation;
     }
-}
 
+    /**
+     * Set type
+     *
+     * @param \PlanmealBundle\Entity\Type $type
+     *
+     * @return Plat
+     */
+    public function setType(\PlanmealBundle\Entity\Type $type = null)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return \PlanmealBundle\Entity\Type
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * Add repa
+     *
+     * @param \PlanmealBundle\Entity\Repas $repa
+     *
+     * @return Plat
+     */
+    public function addRepa(\PlanmealBundle\Entity\Repas $repa)
+    {
+        $this->repas[] = $repa;
+
+        return $this;
+    }
+
+    /**
+     * Remove repa
+     *
+     * @param \PlanmealBundle\Entity\Repas $repa
+     */
+    public function removeRepa(\PlanmealBundle\Entity\Repas $repa)
+    {
+        $this->repas->removeElement($repa);
+    }
+
+    /**
+     * Get repas
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getRepas()
+    {
+        return $this->repas;
+    }
+}
