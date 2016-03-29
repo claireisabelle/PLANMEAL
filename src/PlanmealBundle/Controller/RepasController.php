@@ -69,14 +69,57 @@ class RepasController extends Controller
     }
 
 
-    public function editerAction()
+    public function editerAction(Request $request, $id)
     {
+    	$em = $this->getDoctrine()->getManager();
 
+    	$repas = $em->getRepository('PlanmealBundle:Repas')->find($id);
+
+    	if(!$repas)
+    	{
+    		throw $this->createNotFoundException('Le repas n° '.$id.' est inconnu.');
+    	}
+
+    	$form = $this->createForm(RepasType::class, $repas);
+    	$form->handleRequest($request);
+
+    	if($form->isSubmitted() && $form->isValid())
+    	{
+    		$em->flush();
+
+    		$request->getSession()->getFlashBag()->add('success', 'Le repas a bien été mis à jour.');
+
+    		return $this->redirectToRoute('planmeal_repas_planifier');
+    	}
+
+    	return $this->render('PlanmealBundle:repas:repas-editer.html.twig', array('form' => $form->createView()));
     }
 
 
-    public function supprimerAction()
+    public function supprimerAction(Request $request, $id)
     {
+    	$em = $this->getDoctrine()->getManager();
+
+    	$repas = $em->getRepository('PlanmealBundle:Repas')->find($id);
+
+    	if(!$repas)
+    	{
+    		throw $this->createNotFoundException('Le repas n° '.$id.' est inconnu.');
+    	}
+
+    	$form = $this->createFormBuilder()->getForm();
+
+    	if($form->handleRequest($request)->isValid())
+    	{
+    		$em->remove($repas);
+    		$em->flush();
+
+    		$request->getSession()->getFlashBag()->add('success', 'Le repas a bien été supprimé.');
+
+    		return $this->redirectToRoute('planmeal_repas_planifier');
+    	}
+
+    	return $this->render('PlanmealBundle:repas:repas-supprimer.html.twig', array('repas' => $repas, 'form' => $form->createView()));
 
     }
 

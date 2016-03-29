@@ -1,0 +1,41 @@
+{% extends 'PlanmealBundle:repas:repas-planifier.html.twig' %}
+
+{% block title %}{{ parent() }} - Supprimer un repas{% endblock %}
+
+{% block body %}
+
+{% block contenu1 %}{{ parent() }}{% endblock %}
+
+	<p><a href="{{ path('planmeal_repas_planifier') }}" class="btn btn-warning"><i class="fa fa-caret-left fa-lg"></i> Annuler et revenir en arrière</a></p>
+
+	<ul class="nav nav-tabs" role="tablist">
+		<li role="presentation" class="active"><a href="#ajoutplat" aria-controls="ajoutplat" role="tab" data-toggle="tab">Supprimer un repas</a></li>
+	</ul>
+
+	<div class="tab-content">
+		<div role="tabpanel" class="tab-pane active" id="ajoutplat">
+			
+			<div class="row">
+				<div class="col-xs-12 col-sm-6">
+
+					<div class="alert alert-danger"><p><i class="fa fa-exclamation-triangle fa-lg"></i> Souhaitez-vous vraiment supprimer le repas du {{ repas.date|date('d/m/Y') }} {{ repas.moment }} ?<br /><br /></p>
+
+						<form method="post" action="{{ path('planmeal_repas_supprimer', {'id': repas.id}) }}">
+
+						<input type="submit" value="Supprimer le repas" />
+
+						{{ form_rest(form) }}
+
+						</form>
+
+					</div>
+					
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+
+{% block contenu2 %}{{ parent() }}{% endblock %}
+{% endblock %}
