@@ -27,5 +27,22 @@ class RepasRepository extends \Doctrine\ORM\EntityRepository
 
 		return $qb->getResult();
 	}
+
+	public function findDatePlat($id)
+	{
+		$qb = $this->createQueryBuilder('r')
+			->leftJoin('r.plats', 'p')
+			->addSelect('p')
+			->where('p.id = :id')
+			->setParameter('id', $id)
+			->orderBy('r.date', 'DESC')
+			->setMaxResults(1)
+			->getQuery()
+		;
+
+		return $qb->getResult();
+	}
+
+
 }
 

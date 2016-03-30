@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints\DateTime;
 
 use PlanmealBundle\Entity\Repas;
+use PlanmealBundle\Entity\Plat;
 use PlanmealBundle\Form\Type\RepasType;
 
 class RepasController extends Controller
@@ -119,6 +120,7 @@ class RepasController extends Controller
     		$em->remove($repas);
     		$em->flush();
 
+    		
     		$request->getSession()->getFlashBag()->add('success', 'Le repas a bien été supprimé.');
 
     		return $this->redirectToRoute('planmeal_repas_planifier');
@@ -126,6 +128,15 @@ class RepasController extends Controller
 
     	return $this->render('PlanmealBundle:repas:repas-supprimer.html.twig', array('repas' => $repas, 'form' => $form->createView()));
 
+    }
+
+    public function testAction($id)
+    {
+    	$em = $this->getDoctrine()->getManager();
+
+    	$listeRepas = $em->getRepository('PlanmealBundle:Repas')->findDatePlat($id);
+
+    	return $this->render('PlanmealBundle:repas:test.html.twig', array('listeRepas' => $listeRepas));
     }
 
 

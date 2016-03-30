@@ -2,6 +2,10 @@
 
 namespace PlanmealBundle\Repository;
 
+use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\QueryBuilder;
+
+
 /**
  * PlatRepository
  *
@@ -10,4 +14,5 @@ namespace PlanmealBundle\Repository;
  */
 class PlatRepository extends \Doctrine\ORM\EntityRepository
 {
+
 }

@@ -64,3 +64,9 @@ planmeal_plat_supprimer:
     defaults: { _controller: PlanmealBundle:Parametres:platSupprimer }
     requirements:
         id: \d+
+
+planmeal_test:
+    path: /test/{id}
+    defaults: { _controller: PlanmealBundle:Repas:test }
+    requirements:
+        id: \d+

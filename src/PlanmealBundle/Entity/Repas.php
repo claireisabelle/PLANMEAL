@@ -5,6 +5,8 @@ namespace PlanmealBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
+use Doctrine\ORM\EntityRepository;
+
 
 /**
  * Repas
@@ -246,4 +248,51 @@ class Repas
     {
         return $this->annee;
     }
+
+    /**
+    * @ORM\PrePersist
+    */
+    public function increase()
+    {
+        $plats = $this->getPlats();
+
+        foreach ($plats as $plat) 
+        {
+            
+            $plat->increasePlat();
+        }
+    }
+
+    /**
+    * @ORM\PreRemove
+    */
+    public function decrease()
+    {
+        $plats = $this->getPlats();
+
+        foreach ($plats as $plat) 
+        {
+            
+            $plat->decreasePlat();
+        }
+        
+    }
+
+    /**
+    * @ORM\PrePersist
+    */
+    public function dateUtilisationPlat()
+    {
+        $date = $this->getDate();
+        $plats = $this->getPlats();
+
+        foreach ($plats as $plat) 
+        {
+            $plat->setDateUtilisation($date);
+        }
+    }
+
+
+
+
 }

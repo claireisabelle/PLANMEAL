@@ -10,6 +10,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  *
  * @ORM\Table(name="plat")
  * @ORM\Entity(repositoryClass="PlanmealBundle\Repository\PlatRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Plat
 {
@@ -198,5 +199,15 @@ class Plat
     public function getRepas()
     {
         return $this->repas;
+    }
+
+    public function increasePlat()
+    {
+        $this->nbreUtilisation++;
+    }
+
+    public function decreasePlat()
+    {
+        $this->nbreUtilisation--;
     }
 }
