@@ -33,7 +33,12 @@ class RepasController extends Controller
         $lundi = new \DateTime();
 		$lundi->setISOdate($annee, $semaine);
 
-        return $this->render('PlanmealBundle:repas:calendrier.html.twig', array('annee' => $annee, 'semaine' => $semaine, 'lundi' => $lundi));
+		$em = $this->getDoctrine()->getManager();
+
+		$listeRepas = $em->getRepository('PlanmealBundle:Repas')->findRepas($annee, $semaine);
+
+        return $this->render('PlanmealBundle:repas:calendrier.html.twig', 
+        			array('annee' => $annee, 'semaine' => $semaine, 'lundi' => $lundi, 'listeRepas' => $listeRepas));
     }
 
 

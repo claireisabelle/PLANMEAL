@@ -34,62 +34,72 @@
 					</div>
 				</div><!-- FIN ROW 3 -->
 
-			<div class="table-responsive">
-				<table class="table table-striped table-bordered">
-					<thead>
-						<tr>
-							<th><i class="fa fa-cutlery fa-2x"></i></th>
-							<th>LUNDI<br />{{ lundi|date('d/m/Y') }}</th>
-							<th>MARDI<br />{{ lundi|date_modify("+1 day")|date('d/m/Y') }}</th>
-							<th>MERCREDI<br />{{ lundi|date_modify("+2 day")|date('d/m/Y') }}</th>
-							<th>JEUDI<br />{{ lundi|date_modify("+3 day")|date('d/m/Y') }}</th>
-							<th>VENDREDI<br />{{ lundi|date_modify("+4 day")|date('d/m/Y') }}</th>
-							<th>SAMEDI<br />{{ lundi|date_modify("+5 day")|date('d/m/Y') }}</th>
-							<th>DIMANCHE<br />{{ lundi|date_modify("+6 day")|date('d/m/Y') }}</th>
-						</tr>
-					</thead>
+				<div class="table-responsive">
+					<table class="table table-striped table-bordered">
+						<thead>
+							<tr>
+								<th><i class="fa fa-cutlery fa-2x"></i></th>
+								<th>LUNDI<br />{{ lundi|date('d/m/Y') }}</th>
+								<th>MARDI<br />{{ lundi|date_modify("+1 day")|date('d/m/Y') }}</th>
+								<th>MERCREDI<br />{{ lundi|date_modify("+2 day")|date('d/m/Y') }}</th>
+								<th>JEUDI<br />{{ lundi|date_modify("+3 day")|date('d/m/Y') }}</th>
+								<th>VENDREDI<br />{{ lundi|date_modify("+4 day")|date('d/m/Y') }}</th>
+								<th>SAMEDI<br />{{ lundi|date_modify("+5 day")|date('d/m/Y') }}</th>
+								<th>DIMANCHE<br />{{ lundi|date_modify("+6 day")|date('d/m/Y') }}</th>
+							</tr>
+						</thead>
 
-					<tbody>
-						<tr>
-							<td><strong>Matin</strong></td>
-							<td>Thé<br />Biscottres<br />Galettes de riz</td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
+						<tbody>
+							<tr>
+								<td><strong>Matin</strong></td>
+								{% for i in 1..7 %}
+									<td>
+										{% for repas in listeRepas if repas.moment == 'Matin' and repas.date|date('N') == i  %}						
+												{% for plat in repas.plats %}
+													{{ plat.nom }}<br />
+												{% endfor %} 
+												<em><br />{{ repas.commentaire }}</em>
+																							
+										{% endfor %}
+									</td>	
+								{% endfor %}
+							</tr><!-- Fin de la ligne matin -->
 
-						<tr>
-							<td><strong>Midi</strong></td>
-							<td>Soupe</td>
-							<td></td>
-							<td></td>
-							<td>Nouilles chinoises<br />Lasagne<br />Soupe<br />Compote de pomme</td>
-							<td>Nouilles chinoises<br />Lasagne<br />Soupe<br />Compote de pomme</td>
-							<td></td>
-							<td></td>
-						</tr>
+							<tr>
+								<td><strong>Midi</strong></td>
+								{% for i in 1..7 %}
+									<td>
+										{% for repas in listeRepas if repas.moment == 'Midi' and repas.date|date('N') == i  %}						
+												{% for plat in repas.plats %}
+													{{ plat.nom }}<br />
+												{% endfor %} 
+												<em><br />{{ repas.commentaire }}</em>
+																							
+										{% endfor %}
+									</td>	
+								{% endfor %}
+							</tr><!-- Fin de la ligne midi -->
 
-						<tr>
-							<td><strong>Soir</strong></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-					</tbody>
-				
-				</table>
-			</div>
+							<tr>
+								<td><strong>Soir</strong></td>
+								{% for i in 1..7 %}
+									<td>
+										{% for repas in listeRepas if repas.moment == 'Soir' and repas.date|date('N') == i  %}						
+												{% for plat in repas.plats %}
+													{{ plat.nom }}<br />
+												{% endfor %} 
+												<em><br />{{ repas.commentaire }}</em>
+																							
+										{% endfor %}
+									</td>	
+								{% endfor %}
+							</tr><!-- Fin de la ligne soir -->
+						</tbody>
+					
+					</table>
+				</div>
 
-
-
-			</div>
+			</div><!-- FIN PANEL BODY -->
 		</div>
 
 	</div>

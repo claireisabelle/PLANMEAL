@@ -2,6 +2,9 @@
 
 namespace PlanmealBundle\Repository;
 
+use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\QueryBuilder;
+
 /**
  * RepasRepository
  *
@@ -10,4 +13,19 @@ namespace PlanmealBundle\Repository;
  */
 class RepasRepository extends \Doctrine\ORM\EntityRepository
 {
+
+	public function findRepas($annee, $semaine)
+	{
+		$qb = $this->createQueryBuilder('r')
+			->where('r.annee = :annee')
+			->setParameter('annee', $annee)
+			->andWhere('r.semaine = :semaine')
+			->setParameter('semaine', $semaine)
+			->orderBy('r.date', 'ASC')
+			->getQuery()
+		;
+
+		return $qb->getResult();
+	}
 }
+
