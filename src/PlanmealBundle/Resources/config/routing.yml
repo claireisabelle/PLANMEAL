@@ -10,8 +10,10 @@ planmeal_semaine_suivante:
         annee: \d{4}
 
 planmeal_repas_planifier:
-    path:    /planifier
-    defaults: { _controller:PlanmealBundle:Repas:planifier }
+    path:    /planifier/{page}
+    defaults: { _controller:PlanmealBundle:Repas:planifier, page: 1 }
+    requirements:
+        page: \d+
 
 planmeal_repas_ajouter:
     path:    /planifier/repas/ajouter
@@ -70,3 +72,7 @@ planmeal_test:
     defaults: { _controller: PlanmealBundle:Repas:test }
     requirements:
         id: \d+
+
+planmeal_statistiques_index:
+    path: /statistiques
+    defaults: { _controller: PlanmealBundle:Statistiques:index }

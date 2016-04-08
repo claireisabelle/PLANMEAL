@@ -4,6 +4,7 @@ namespace PlanmealBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
  * RepasRepository
@@ -31,8 +32,8 @@ class RepasRepository extends \Doctrine\ORM\EntityRepository
 	public function findDatePlat($id)
 	{
 		$qb = $this->createQueryBuilder('r')
+			->select('r.date')
 			->leftJoin('r.plats', 'p')
-			->addSelect('p')
 			->where('p.id = :id')
 			->setParameter('id', $id)
 			->orderBy('r.date', 'DESC')
@@ -40,7 +41,39 @@ class RepasRepository extends \Doctrine\ORM\EntityRepository
 			->getQuery()
 		;
 
-		return $qb->getResult();
+		return $qb->getOneOrNullResult();
+	}
+
+	public function countPlat($id)
+	{
+		$qb = $this->createQueryBuilder('r')
+			->leftJoin('r.plats', 'p')
+			->addSelect('p')
+			->where('p.id = :id')
+			->setParameter('id', $id)
+			->select('count(r.id)')
+			->getQuery()
+		;
+
+		return $qb->getSingleScalarResult();
+	}
+
+	public function getRepas($page, $nbPerPage)
+	{
+		$query = $this->createQueryBuilder('r')
+		->leftJoin('r.plats', 'p')
+		->addSelect('p')
+		->orderBy('r.date', 'DESC')
+		->getQuery()
+		;
+
+		$query
+		->setFirstResult(($page-1) * $nbPerPage)
+		->setMaxResults($nbPerPage)
+		;
+
+		// Ne pas oublier le use correspondant
+		return new Paginator($query, true);
 	}
 
 

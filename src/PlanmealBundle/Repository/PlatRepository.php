@@ -14,5 +14,17 @@ use Doctrine\ORM\QueryBuilder;
  */
 class PlatRepository extends \Doctrine\ORM\EntityRepository
 {
+	
+	public function getPlats()
+	{
+		$qb = $this->createQueryBuilder('p')
+			->orderBy('p.nbreUtilisation', 'DESC')
+			->addOrderBy('p.dateUtilisation', 'DESC')
+			->getQuery()
+		;
+
+		return $qb->getResult();
+	}
+
 
 }

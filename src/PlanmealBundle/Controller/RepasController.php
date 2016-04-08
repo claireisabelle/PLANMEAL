@@ -43,13 +43,26 @@ class RepasController extends Controller
     }
 
 
-    public function planifierAction()
+    public function planifierAction($page)
     {
+		if ($page < 1) 
+		{
+			throw $this->createNotFoundException("La page ".$page." n'existe pas.");
+		}
+
+		$nbPerPage = 21;
+
     	$em = $this->getDoctrine()->getManager();
 
-    	$listeRepas = $em->getRepository('PlanmealBundle:Repas')->findBy(array(), array('date' => 'DESC'));
+    	$listeRepas = $em->getRepository('PlanmealBundle:Repas')->getRepas($page, $nbPerPage);
+    	$nbPages = ceil(count($listeRepas)/$nbPerPage);
 
-    	return $this->render('PlanmealBundle:repas:repas-planifier.html.twig', array('listeRepas' => $listeRepas));
+		if ($page > $nbPages) 
+		{
+			throw $this->createNotFoundException("La page ".$page." n'existe pas.");
+		}
+
+    	return $this->render('PlanmealBundle:repas:repas-planifier.html.twig', array('listeRepas' => $listeRepas, 'nbPages' => $nbPages, 'page' => $page));
     }
 
 
@@ -81,6 +94,7 @@ class RepasController extends Controller
 
     	$repas = $em->getRepository('PlanmealBundle:Repas')->find($id);
 
+
     	if(!$repas)
     	{
     		throw $this->createNotFoundException('Le repas n° '.$id.' est inconnu.');
@@ -91,9 +105,41 @@ class RepasController extends Controller
 
     	if($form->isSubmitted() && $form->isValid())
     	{
+    		
     		$em->flush();
 
     		$request->getSession()->getFlashBag()->add('success', 'Le repas a bien été mis à jour.');
+
+    		// Après édition d'un repas, mise à jour du nombre d'utilisation et de la date de la dernière utilisation des plats
+    		$plats = $em->getRepository('PlanmealBundle:Plat')->findAll();
+
+    		foreach ($plats as $plat) 
+    		{
+    			$idPlat = $plat->getId();
+    			
+    			// Mise à jour du nombre d'utilisation
+    			$nbreUsePlat = $em->getRepository('PlanmealBundle:Repas')->countPlat($idPlat);
+    			$plat->setNbreUtilisation($nbreUsePlat);
+
+    			// Mise à jour de la date de dernière utilisation
+    			$dateDernierRepas = $em->getRepository('PlanmealBundle:Repas')->findDatePlat($idPlat);	
+    			
+    			if(is_null($dateDernierRepas))
+    			{
+    				$date = new \DateTime('2001-06-16');
+    				$plat->setDateUtilisation($date);
+    			}
+    			else
+    			{
+    				foreach ($dateDernierRepas as $dateRepas) 
+    				{
+    					$plat->setDateUtilisation($dateRepas);
+    				}
+       			}
+       		}
+
+       		// Enregistrement des mises à jour
+    		$em->flush(); 
 
     		return $this->redirectToRoute('planmeal_repas_planifier');
     	}
@@ -120,9 +166,34 @@ class RepasController extends Controller
     		$em->remove($repas);
     		$em->flush();
 
-    		
-    		$request->getSession()->getFlashBag()->add('success', 'Le repas a bien été supprimé.');
+    		// Après supprection d'un repas, mise à jour de la dernière date d'utilisation des plats
+    		$plats = $em->getRepository('PlanmealBundle:Plat')->findAll();
 
+    		foreach ($plats as $plat) 
+    		{
+    			$idPlat = $plat->getId();
+    			
+    			// Mise à jour de la date de dernière utilisation
+    			$dateDernierRepas = $em->getRepository('PlanmealBundle:Repas')->findDatePlat($idPlat);	
+    			
+    			if(is_null($dateDernierRepas))
+    			{
+    				$date = new \DateTime('2001-06-16');
+    				$plat->setDateUtilisation($date);
+    			}
+    			else
+    			{
+    				foreach ($dateDernierRepas as $dateRepas) 
+    				{
+    					$plat->setDateUtilisation($dateRepas);
+    				}
+       			}
+       		}
+
+       		// Enregistrement des mises à jour
+    		$em->flush(); 
+
+      		$request->getSession()->getFlashBag()->add('success', 'Le repas a bien été supprimé.');
     		return $this->redirectToRoute('planmeal_repas_planifier');
     	}
 
@@ -130,14 +201,6 @@ class RepasController extends Controller
 
     }
 
-    public function testAction($id)
-    {
-    	$em = $this->getDoctrine()->getManager();
-
-    	$listeRepas = $em->getRepository('PlanmealBundle:Repas')->findDatePlat($id);
-
-    	return $this->render('PlanmealBundle:repas:test.html.twig', array('listeRepas' => $listeRepas));
-    }
 
 
 }

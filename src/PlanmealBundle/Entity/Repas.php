@@ -288,7 +288,13 @@ class Repas
 
         foreach ($plats as $plat) 
         {
-            $plat->setDateUtilisation($date);
+            $dateUtilisation = $plat->getDateUtilisation();
+
+            if($date > $dateUtilisation)
+            {
+                $plat->setDateUtilisation($date);
+            }
+            
         }
     }
 

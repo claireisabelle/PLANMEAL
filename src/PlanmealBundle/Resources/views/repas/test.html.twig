@@ -9,8 +9,10 @@
 <h1>TEST</h1>
 
 {% for repas in listeRepas %}
-<p>{{ repas.date|date('d/m/Y') }} - {{ repas.moment }}</p>
+<p>{{ repas.date|date('d/m/Y') }} </p>
 {% endfor %}
+
+<p>Nbre d'utilisation : {{ nbrePlat }}</p>
 
 </body>
 </html>

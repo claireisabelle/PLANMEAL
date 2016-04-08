@@ -1,0 +1,54 @@
+{% extends 'PlanmealBundle::index.html.twig' %}
+
+{% block title %}Statistiques{% endblock %}
+
+{% block body %}
+
+{% block contenu1 %} 
+
+<div class="row"><!-- ROW 1 -->
+	<div class="col-xs-12">
+		<div class="panel panel-default">
+			<div class="panel-heading"><i class="fa fa-line-chart fa-lg"></i> Statistiques</div>
+			
+
+			<div class="panel-body">
+{% endblock %}
+				
+
+				<p><a href="{{ path('planmeal_repas_ajouter') }}" class="btn btn-info"><i class="fa fa-plus fa-lg"></i> Composer un repas</a></p>
+
+				<table class="table table-striped table-parametres">
+					<thead>
+						<tr>
+							<th>Nom du plat</th>
+							<th>Nbre utilisation</th>
+							<th>Dernière utilisation</th>
+						</tr>
+					</thead>
+
+					<tbody>
+						<tr>
+						{% for plat in listePlats %}
+						<tr>
+							<td>{{ plat.nom }}</td>
+							<td>{{ plat.nbreUtilisation }}</td>
+							<td>{{ plat.dateUtilisation|date('l')|trans }} {{ plat.dateUtilisation|date('d/m/Y') }}</td>
+						</tr>
+						{% endfor %}
+
+					</tbody>
+				</table>
+
+
+
+{% block contenu2 %}
+			</div>
+		</div>
+
+	</div>
+
+</div><!-- FIN ROW 1 -->
+{% endblock %}
+
+{% endblock %}
