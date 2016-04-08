@@ -1,0 +1,31 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+
+
+
+
+<div class="container">
+
+	<div class="row">
+
+		<div class="col-xs-offset-4 col-xs-4">
+			<br />
+			<div class="alert alert-success"><p>Création d'un profil <strong>DinoMeal</strong></p></div>
+
+
+				{{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
+    			
+    			<div class="form-group">
+    			{{ form_widget(form) }}
+    			</div>
+
+
+
+			    <p><input type="submit" value="{{ 'registration.submit'|trans }}" /></p>
+				{{ form_end(form) }}
+
+		</div>
+
+	</div>
+
+</div>

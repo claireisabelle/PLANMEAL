@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="{{ _charset }}" />
+        <title>Une erreur a été détectée : {{ status_text }}</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+    </head>
+    <body>
+
+        <div class="container">
+            <div class="jumbotron">
+                <h1>Ohoo... Une erreur est survenue...</h1>
+                <h2><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> Le serveur a retourné l'erreur suivante : "{{ status_code }} {{ status_text }}".</h2>
+                <p><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> Ce n'est pas bien grave, suivez-moi pour revenir dans le bon chemin : <a href="{{ path('planmeal_homepage') }}">c'est par ici...</a></p>
+            </div>
+
+        </div>
+    </body>
+</html>
