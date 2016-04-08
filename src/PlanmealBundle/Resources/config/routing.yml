@@ -31,6 +31,12 @@ planmeal_repas_supprimer:
     requirements:
         id: \d+
 
+planmeal_repas_copier:
+    path:    /planifier/repas/copier/{id}
+    defaults: { _controller:PlanmealBundle:Repas:copier }
+    requirements:
+        id: \d+
+
 planmeal_parametres_index:
     path:    /parametres 
     defaults: { _controller: PlanmealBundle:Parametres:index }

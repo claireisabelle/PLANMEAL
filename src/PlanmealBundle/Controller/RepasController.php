@@ -203,5 +203,23 @@ class RepasController extends Controller
 
 
 
+    public function copierAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $repas = $em->getRepository('PlanmealBundle:Repas')->find($id);
+
+        $repasCopie = clone $repas;
+
+        $em->persist($repasCopie);
+
+        $em->flush();
+
+        return $this->redirectToRoute('planmeal_repas_planifier');
+
+
+    }
+
+
 }
 

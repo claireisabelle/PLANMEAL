@@ -5,6 +5,9 @@ namespace PlanmealBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
+use Doctrine\ORM\EntityRepository;
+
+
 /**
  * Repas
  *
@@ -40,7 +43,7 @@ class Repas
     /**
      * @var string
      *
-     * @ORM\Column(name="commentaire", type="text")
+     * @ORM\Column(name="commentaire", type="text", nullable=true)
      */
     private $commentaire;
 
@@ -167,9 +170,8 @@ class Repas
      */
     public function setSemaine()
     {
-        $date = $this->getDate();
-
-        $this->semaine = date('W', $date);
+        
+        $this->semaine = $this->getDate()->format('W');
 
         return $this;
     }
@@ -217,4 +219,86 @@ class Repas
     {
         return $this->plats;
     }
+
+    /**
+     * Set annee
+     *
+     * @param integer $annee
+     *
+     * @return Repas
+     *
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     *
+     */
+    public function setAnnee()
+    {
+        
+        $this->annee = $this->getDate()->format('Y');
+
+        return $this;
+    }
+
+    /**
+     * Get annee
+     *
+     * @return integer
+     */
+    public function getAnnee()
+    {
+        return $this->annee;
+    }
+
+    /**
+    * @ORM\PrePersist
+    */
+    public function increase()
+    {
+        $plats = $this->getPlats();
+
+        foreach ($plats as $plat) 
+        {
+            
+            $plat->increasePlat();
+        }
+    }
+
+    /**
+    * @ORM\PreRemove
+    */
+    public function decrease()
+    {
+        $plats = $this->getPlats();
+
+        foreach ($plats as $plat) 
+        {
+            
+            $plat->decreasePlat();
+        }
+        
+    }
+
+    /**
+    * @ORM\PrePersist
+    */
+    public function dateUtilisationPlat()
+    {
+        $date = $this->getDate();
+        $plats = $this->getPlats();
+
+        foreach ($plats as $plat) 
+        {
+            $dateUtilisation = $plat->getDateUtilisation();
+
+            if($date > $dateUtilisation)
+            {
+                $plat->setDateUtilisation($date);
+            }
+            
+        }
+    }
+
+
+
+
 }

@@ -36,6 +36,7 @@
 							<th>Date</th>
 							<th>Moment</th>
 							<th class="parametres">Editer</th>
+							<th class="parametres">Copier</th>
 							<th class="parametres">Supprimer</th>
 						</tr>
 					</thead>
@@ -47,6 +48,7 @@
 							<td>{{ repas.date|date('l')|trans }} {{ repas.date|date('d/m/Y') }}</td>
 							<td>{{ repas.moment }}</td>
 							<td class="parametres"><a href="{{ path('planmeal_repas_editer', {'id': repas.id}) }}" class="label label-primary"><i class="fa fa-pencil fa-lg"></i> Editer</a></td>
+							<td class="parametres"><a href="{{ path('planmeal_repas_copier', {'id': repas.id}) }}" class="label label-info"><i class="fa fa-files-o fa-lg"></i> Copier</a></td>
 							<td class="parametres"><a href="{{ path('planmeal_repas_supprimer', {'id': repas.id}) }}" class="label label-danger"><i class="fa fa-trash fa-lg"></i> Supprimer</a></td>
 						</tr>
 						{% endfor %}

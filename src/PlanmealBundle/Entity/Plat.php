@@ -54,6 +54,13 @@ class Plat
     **/
     protected $repas;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="categorie", type="string", length=255)
+     */
+    private $categorie;
+
     public function __construct()
     {
         $this->repas = new ArrayCollection();
@@ -209,5 +216,29 @@ class Plat
     public function decreasePlat()
     {
         $this->nbreUtilisation--;
+    }
+
+    /**
+     * Set categorie
+     *
+     * @param string $categorie
+     *
+     * @return Plat
+     */
+    public function setCategorie($categorie)
+    {
+        $this->categorie = $categorie;
+
+        return $this;
+    }
+
+    /**
+     * Get categorie
+     *
+     * @return string
+     */
+    public function getCategorie()
+    {
+        return $this->categorie;
     }
 }
