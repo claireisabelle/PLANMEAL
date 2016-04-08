@@ -4,11 +4,6 @@ namespace PlanmealBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
-
-use PlanmealBundle\Entity\Repas;
-use PlanmealBundle\Entity\Plat;
-
 class StatistiquesController extends Controller
 {
 

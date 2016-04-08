@@ -8,7 +8,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints\DateTime;
 
 use PlanmealBundle\Entity\Repas;
-use PlanmealBundle\Entity\Plat;
 use PlanmealBundle\Form\Type\RepasType;
 
 class RepasController extends Controller
@@ -141,10 +140,8 @@ class RepasController extends Controller
     				}
        			}
        		}
-
        		// Enregistrement des mises à jour
     		$em->flush(); 
-
     		return $this->redirectToRoute('planmeal_repas_planifier');
     	}
 
