@@ -54,15 +54,19 @@ class RepasController extends Controller
 
     	$em = $this->getDoctrine()->getManager();
 
-    	$listeRepas = $em->getRepository('PlanmealBundle:Repas')->getRepas($page, $nbPerPage);
-    	$nbPages = ceil(count($listeRepas)/$nbPerPage);
+    	$suggestionsPrincipal = $em->getRepository('PlanmealBundle:Plat')->getSuggestionsPrincipal();
+        $suggestionsEntree = $em->getRepository('PlanmealBundle:Plat')->getSuggestionsEntree();
+
+        $listeRepas = $em->getRepository('PlanmealBundle:Repas')->getRepas($page, $nbPerPage);
+    	
+        $nbPages = ceil(count($listeRepas)/$nbPerPage);
 
 		if ($page > $nbPages) 
 		{
 			throw $this->createNotFoundException("La page ".$page." n'existe pas.");
 		}
 
-    	return $this->render('PlanmealBundle:repas:repas-planifier.html.twig', array('listeRepas' => $listeRepas, 'nbPages' => $nbPages, 'page' => $page));
+    	return $this->render('PlanmealBundle:repas:repas-planifier.html.twig', array('listeRepas' => $listeRepas, 'nbPages' => $nbPages, 'page' => $page, 'suggestionsPrincipal' => $suggestionsPrincipal, 'suggestionsEntree' => $suggestionsEntree));
     }
 
 

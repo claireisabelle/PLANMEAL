@@ -21,6 +21,17 @@
 
 				<p><a href="{{ path('planmeal_repas_ajouter') }}" class="btn btn-info"><i class="fa fa-plus fa-lg"></i> Composer un repas</a></p>
 
+				<div class="alert alert-info" role="alert">
+					<i class="fa fa-lightbulb-o"></i> <strong>Suggestions de plats principaux :</strong><br />
+					{% for principal in suggestionsPrincipal %}
+						{{ principal.nom }} |
+					{% endfor %}<br /><br />
+					<i class="fa fa-lightbulb-o"></i> <strong>Suggestions d'entrées :</strong><br />
+					{% for entree in suggestionsEntree %}
+						{{ entree.nom }} |
+					{% endfor %}
+				</div>
+
 				<ul class="pagination">
 						{# Fonction range(a, b) qui crée un tableau de valeurs entre a et b #}
 							{% for p in range(1, nbPages) %}

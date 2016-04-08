@@ -26,5 +26,33 @@ class PlatRepository extends \Doctrine\ORM\EntityRepository
 		return $qb->getResult();
 	}
 
+	public function getSuggestionsPrincipal()
+	{
+		$qb = $this->createQueryBuilder('p')
+		->where('p.categorie = :categorie')
+		->setParameter('categorie', 'Principal')
+		->orderBy('p.dateUtilisation', 'ASC')
+		->addOrderBy('p.nbreUtilisation', 'ASC')
+		->setMaxResults(5)
+		->getQuery()
+		;
+
+		return $qb->getResult();
+	}
+
+	public function getSuggestionsEntree()
+	{
+		$qb = $this->createQueryBuilder('p')
+		->where('p.categorie = :categorie')
+		->setParameter('categorie', 'Entrée')
+		->orderBy('p.dateUtilisation', 'ASC')
+		->addOrderBy('p.nbreUtilisation', 'ASC')
+		->setMaxResults(5)
+		->getQuery()
+		;
+
+		return $qb->getResult();
+	}
+
 
 }
